@@ -366,19 +366,25 @@ export const command = false;       // curated, no data fetch
 export const refreshFrequency = false; // load once and spin continuously
 
 const BASE = "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models";
-// Curated for visual impact; the first entry is bundled, the rest stream from BASE.
+// Curated for visual impact; the first entry is bundled (offline fallback), the
+// rest stream from BASE. Slugs are verified against the glTF-Sample-Assets
+// model-index and all expose a glTF-Binary (.glb) variant.
 const MODELS = [
-  { name: "Winged Victory", src: "winged-victory.glb" },
-  { name: "Damaged Helmet", slug: "DamagedHelmet" },
+  { name: "Damaged Helmet", src: "rotating-3d-model.widget/DamagedHelmet.glb" },
+  { name: "Antique Camera", slug: "AntiqueCamera" },
+  { name: "Chess Set", slug: "ABeautifulGame" },
+  { name: "Concept Car", slug: "CarConcept" },
+  { name: "Chronograph Watch", slug: "ChronographWatch" },
   { name: "Jade Dragon", slug: "DragonAttenuation" },
+  { name: "Scattering Skull", slug: "ScatteringSkull" },
   { name: "Iridescent Dish", slug: "IridescentDishWithOlives" },
   { name: "Toy Car", slug: "ToyCar" },
   { name: "Ornate Lantern", slug: "Lantern" },
   { name: "Boom Box", slug: "BoomBox" },
   { name: "Velvet Sofa", slug: "GlamVelvetSofa" },
   { name: "Sneaker", slug: "MaterialsVariantsShoe" },
-  { name: "Sheen Chair", slug: "SheenChair" },
-  { name: "Corset", slug: "Corset" },
+  { name: "Silk Pouf", slug: "SpecularSilkPouf" },
+  { name: "Water Bottle", slug: "WaterBottle" },
 ];
 const url = (m) => m.src || `${BASE}/${m.slug}/glTF-Binary/${m.slug}.glb`;
 
