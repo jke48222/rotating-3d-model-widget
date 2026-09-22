@@ -1,6 +1,6 @@
 # rotating-3d-model
 
-> A live, auto-rotating 3D PBR model that changes daily, with offline fallback.
+> A live, auto-rotating 3D model in a brass-and-marble museum vitrine; changes daily, offline fallback.
 
 [![Release](https://img.shields.io/github/v/release/jke48222/rotating-3d-model-widget?label=release)](https://github.com/jke48222/rotating-3d-model-widget/releases/latest) [![License: MIT](https://img.shields.io/github/license/jke48222/rotating-3d-model-widget)](LICENSE) ![Platform: macOS](https://img.shields.io/badge/platform-macOS-lightgrey)
 
@@ -12,7 +12,7 @@ runs on any Mac with no extra files beyond the bundled assets.
 
 ![screenshot](media/screenshot.png)
 
-A museum vitrine: the object turns inside a glass case under a warm spot, on a black plinth with a brass placard that names it and numbers it in the collection. Typeface: Cinzel. All fonts are under the SIL Open Font License; see `rotating-3d-model.widget/fonts/OFL.txt`.
+A museum vitrine: a brass-framed glass case with a felt back wall on a Carrara marble plinth, the object turning under a warm spot, a typed label card on the plinth, and two brass buttons that step through the collection. Typeface: Inter. All fonts are under the SIL Open Font License; see `rotating-3d-model.widget/fonts/OFL.txt`.
 
 ## Before and after
 
