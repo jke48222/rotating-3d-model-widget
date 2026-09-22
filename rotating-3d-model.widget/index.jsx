@@ -131,7 +131,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-drag  { position:absolute; top:6px; left:6px; z-index:30;
               width:18px; height:18px; border-radius:6px;
               display:flex; align-items:center; justify-content:center;
-              font-size:11px; line-height:1; cursor:grab; opacity:0.22;
+              font-size:11px; line-height:1; cursor:grab; opacity:0.42;
               transition:opacity .15s ease; user-select:none;
               -webkit-user-select:none;
               color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -143,7 +143,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-resize { position:absolute; bottom:5px; right:5px; z-index:30;
                width:16px; height:16px; border-radius:5px;
                display:flex; align-items:center; justify-content:center;
-               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.22;
+               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.42;
                transition:opacity .15s ease; user-select:none;
                -webkit-user-select:none;
                color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -412,20 +412,30 @@ const wire = (el) => {
   });
 };
 
-export const className = card("dark", 180, 180, ...LAYOUT.spatial) + `
-  background: transparent; box-shadow: none; backdrop-filter: none; padding: 0; overflow: visible;
-  model-viewer { position:absolute; inset:0; width:100%; height:100%;
-                 background-color: transparent; --poster-color: transparent; }
-  .nav  { position:absolute; bottom:6px; width:26px; height:26px; z-index:5;
-          display:flex; align-items:center; justify-content:center; cursor:pointer;
-          border-radius:50%; color:rgba(255,255,255,0.9); font-size:15px;
-          background:rgba(20,20,28,0.5); backdrop-filter:blur(6px);
-          opacity:0; transition:opacity 0.2s ease; user-select:none; }
-  .nav.prev { left:6px; }
-  .nav.next { right:6px; }
-  :hover .nav { opacity:1; }
+const FONTS = "rotating-3d-model.widget/fonts";
+// A museum vitrine: the object turns inside a glass case under a warm spot,
+// on a black plinth with a brass placard that names it and numbers it in the
+// collection. Arrows on the plinth step through the collection.
+export const className = card("dark", 200, 250, ...LAYOUT.spatial) + `
+  @font-face { font-family: "Cinzel"; src: url("${FONTS}/Cinzel-700.woff2") format("woff2"); font-weight: 700; }
+  background: transparent; box-shadow: none; backdrop-filter: none; padding: 0; overflow: visible; user-select:none; -webkit-user-select:none;
+  .ws-drag { top: 4px; left: 14px; color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.08); } .ws-resize { bottom: 4px; right: 4px; color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.08); }
+  .case { position:absolute; left: 12px; right: 12px; top: 0; bottom: 36px; border-radius: 5px 5px 1px 1px; pointer-events:none;
+          background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.02) 100%);
+          box-shadow: inset 0 0 0 1px rgba(255,255,255,0.28), inset 1px 0 0 rgba(255,255,255,0.35), inset 0 40px 50px -40px rgba(255,255,255,0.45), 0 20px 40px rgba(0,0,0,0.5); }
+  .spot { position:absolute; left: 50%; top: 0; width: 170px; height: 200px; margin-left: -85px; pointer-events:none; background: radial-gradient(70px 150px at 50% 4%, rgba(255,236,200,0.34), rgba(255,236,200,0) 70%); }
+  .floor { position:absolute; left: 12px; right: 12px; bottom: 36px; height: 30px; pointer-events:none; background: radial-gradient(60px 12px at 50% 90%, rgba(255,255,255,0.10), transparent); }
+  model-viewer { position:absolute; left: 12px; right: 12px; top: 10px; bottom: 44px; width: auto; height: auto; background-color: transparent; --poster-color: transparent; }
+  .plinth { position:absolute; left: 0; right: 0; bottom: 0; height: 36px; border-radius: 3px; background: linear-gradient(180deg, #2C2D31 0%, #17181B 55%, #0B0B0D 100%);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.14), 0 0 0 1px #000; }
+  .plaque { position:absolute; left: 50%; bottom: 10px; transform: translateX(-50%); max-width: 130px; padding: 0 10px; height: 16px; border-radius: 2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+            background: linear-gradient(180deg, #EACB6E 0%, #C99E3A 45%, #A57E27 100%); box-shadow: 0 1px 3px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.5);
+            font: 700 6.5px/16px "Cinzel", serif; letter-spacing: 1.6px; text-transform:uppercase; color: #3A2A0A; text-align:center; }
+  .no { position:absolute; left: 50%; bottom: 2px; transform: translateX(-50%); font: 700 5.5px/1 "Cinzel", serif; letter-spacing: 1.6px; color: rgba(255,255,255,0.4); }
+  .nav { position:absolute; bottom: 8px; width: 22px; height: 22px; display:flex; align-items:center; justify-content:center; cursor:pointer; color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1; border-radius: 50%; }
+  .nav:hover { background: rgba(255,255,255,0.08); }
+  .nav.prev { left: 8px; } .nav.next { right: 8px; }
 `;
-
 const dayOfYear = () => {
   const now = new Date();
   return Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
@@ -451,32 +461,26 @@ const step = (delta) => (e) => {
   preload(next);
 };
 
+const stepAndLabel = (delta) => (e) => {
+  step(delta)(e);
+  const i = startIdx(); const p = document.getElementById("ws-spatial-name"); if (p) p.textContent = MODELS[i].name;
+  const n = document.getElementById("ws-spatial-no"); if (n) n.textContent = `No. ${i + 1} of ${MODELS.length}`;
+};
 export const render = () => {
-  const idx = startIdx();
-  const m = MODELS[idx];
-  preload(idx);
+  const idx = startIdx(); const m = MODELS[idx]; preload(idx);
   return (
     <div aria-label={`3D asset: ${m.name}, slowly rotating`}>
+      <div className="spot" />
+      <model-viewer id="ws-spatial-mv" ref={wire} src={url(m)} alt={m.name} auto-rotate="" auto-rotate-delay="0" rotation-per-second="22deg" interaction-prompt="none" disable-zoom="" environment-image="neutral" exposure="1.1" shadow-intensity="0.6" loading="eager" style={{ backgroundColor: "transparent" }}></model-viewer>
+      <div className="floor" />
+      <div className="case" />
+      <div className="plinth" />
       <DragHandle k="spatial" />
       <ResizeHandle k="spatial" />
-      <model-viewer
-        id="ws-spatial-mv"
-        ref={wire}
-        src={url(m)}
-        alt={m.name}
-        auto-rotate=""
-        auto-rotate-delay="0"
-        rotation-per-second="22deg"
-        interaction-prompt="none"
-        disable-zoom=""
-        environment-image="neutral"
-        exposure="1.05"
-        shadow-intensity="0.35"
-        loading="eager"
-        style={{ backgroundColor: "transparent" }}
-      ></model-viewer>
-      <div className="nav prev" title="Previous object" onClick={step(-1)}>&#x2039;</div>
-      <div className="nav next" title="Next object" onClick={step(1)}>&#x203A;</div>
+      <div className="nav prev" title="Previous object" onClick={stepAndLabel(-1)}>&#x2039;</div>
+      <div className="nav next" title="Next object" onClick={stepAndLabel(1)}>&#x203A;</div>
+      <div id="ws-spatial-name" className="plaque">{m.name}</div>
+      <div id="ws-spatial-no" className="no">No. {idx + 1} of {MODELS.length}</div>
     </div>
   );
 };
