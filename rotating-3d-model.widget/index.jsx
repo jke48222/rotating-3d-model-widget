@@ -131,7 +131,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-drag  { position:absolute; top:6px; left:6px; z-index:30;
               width:18px; height:18px; border-radius:6px;
               display:flex; align-items:center; justify-content:center;
-              font-size:11px; line-height:1; cursor:grab; opacity:0.42;
+              font-size:11px; line-height:1; cursor:grab; opacity:0.22;
               transition:opacity .15s ease; user-select:none;
               -webkit-user-select:none;
               color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -143,7 +143,7 @@ const card = (variant, w, h, x = 0, y = 0) => `
   .ws-resize { position:absolute; bottom:5px; right:5px; z-index:30;
                width:16px; height:16px; border-radius:5px;
                display:flex; align-items:center; justify-content:center;
-               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.42;
+               font-size:11px; line-height:1; cursor:nwse-resize; opacity:0.22;
                transition:opacity .15s ease; user-select:none;
                -webkit-user-select:none;
                color:${variant === "dark" ? T.onDarkMute : T.inkMute};
@@ -411,42 +411,21 @@ const wire = (el) => {
     }
   });
 };
-const FONTS = "rotating-3d-model.widget/fonts";
-// A museum vitrine: a brass-framed glass case on a Carrara marble plinth,
-// the object turning under a warm spot with a typed label card on the
-// plinth. The brass buttons step through the collection.
-export const className = card("dark", 220, 292, ...LAYOUT.spatial) + `
-  @font-face { font-family: "Inter"; src: url("${FONTS}/Inter-500.woff2") format("woff2"); font-weight: 500; }
-  @font-face { font-family: "Inter"; src: url("${FONTS}/Inter-600.woff2") format("woff2"); font-weight: 600; }
-  --ui: "Inter", -apple-system, sans-serif; --brass: #C9A55A; --brass2: #7E5F22;
-  background: transparent; box-shadow: none; backdrop-filter: none; padding: 0; overflow: visible; user-select:none; -webkit-user-select:none;
-  .ws-drag { top: 12px; left: 26px; color: #E8CF8C; background: rgba(0,0,0,0.3); } .ws-resize { bottom: 6px; right: 8px; color: #6b5a3a; background: rgba(0,0,0,0.08); }
-  .spot { position:absolute; left: 44px; top: 8px; width: 132px; height: 180px; pointer-events:none; background: radial-gradient(ellipse 50% 45% at 50% 0%, rgba(255,236,190,0.55), rgba(255,236,190,0) 70%); }
-  model-viewer { position:absolute; left: 24px; top: 10px; width: 172px; height: 180px; --poster-color: transparent; }
-  .floor { position:absolute; left: 24px; top: 168px; width: 172px; height: 22px; pointer-events:none; background: radial-gradient(ellipse 45% 50% at 50% 50%, rgba(0,0,0,0.35), rgba(0,0,0,0) 70%); }
-  .backwall { position:absolute; left: 22px; top: 8px; width: 176px; height: 186px; pointer-events:none; background: linear-gradient(180deg, rgba(58,60,66,0.55) 0%, rgba(30,32,36,0.72) 100%); }
-  .post { position:absolute; top: 0; width: 5px; height: 196px; z-index: 2; pointer-events:none; background: linear-gradient(90deg, #7E5F22, #E2C27C 45%, #7E5F22); box-shadow: 0 0 0 1px rgba(0,0,0,0.35); }
-  .post.l { left: 18px; } .post.r { right: 18px; }
-  .case { position:absolute; left: 20px; top: 0; width: 180px; height: 196px; border-radius: 2px; pointer-events:none;
-          background: linear-gradient(160deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 30%, rgba(255,255,255,0.03) 60%, rgba(255,255,255,0.14) 100%);
-          box-shadow: inset 0 0 0 2px var(--brass), inset 0 0 0 3px var(--brass2), inset 0 0 0 4px rgba(255,255,255,0.25), 0 0 0 1px rgba(0,0,0,0.35), inset 0 -30px 40px rgba(0,0,0,0.18); }
-  .case::before { content:""; position:absolute; left: 10%; top: 0; width: 18%; height: 100%; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0) 100%); }
-  .case::after { content:""; position:absolute; left: 0; right: 0; top: 0; height: 8px; background: linear-gradient(180deg, var(--brass), var(--brass2)); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
-  .topcap { position:absolute; left: 0; top: 194px; width: 220px; height: 4px; z-index: 2; background: linear-gradient(180deg, #E4E1DB, #B9B4AC); }
-  .plinth { position:absolute; left: 0; top: 196px; width: 220px; height: 96px; border-radius: 3px; overflow:hidden;
-            background: linear-gradient(180deg, #F4F2EE 0%, #E6E3DD 100%);
-            box-shadow: 0 30px 50px rgba(0,0,0,0.5), inset 0 1px 0 #fff, inset 0 0 0 1px #B9B4AC, inset 0 -3px 0 rgba(0,0,0,0.12); }
-  .plinth::before { content:""; position:absolute; inset: 0; opacity: 0.85; pointer-events:none;
-       background: linear-gradient(115deg, rgba(0,0,0,0) 0 38%, rgba(120,116,110,0.35) 39%, rgba(0,0,0,0) 40.5%, rgba(0,0,0,0) 62%, rgba(120,116,110,0.25) 63%, rgba(0,0,0,0) 64%), linear-gradient(80deg, rgba(0,0,0,0) 0 20%, rgba(150,146,140,0.25) 21%, rgba(0,0,0,0) 22.5%), linear-gradient(140deg, rgba(0,0,0,0) 0 74%, rgba(120,116,110,0.2) 75%, rgba(0,0,0,0) 76.5%); }
-  .plinth::after { content:""; position:absolute; inset:0; opacity: 0.35; mix-blend-mode: multiply; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.12'/%3E%3C/svg%3E"); }
-  .label { position:absolute; left: 50px; top: 222px; width: 120px; height: 42px; z-index: 3; box-sizing: border-box; padding: 7px 9px; background: #FCFBF8; border-radius: 1px; box-shadow: 0 2px 4px rgba(0,0,0,0.25), 0 0 0 0.5px rgba(0,0,0,0.15); }
-  .plaque { font: 600 9.5px/1.2 var(--ui); color: #1F1D1A; letter-spacing: -0.1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .no { margin-top: 3px; font: 500 7.5px/1.3 var(--ui); color: #7A756D; letter-spacing: 0.2px; }
-  .nav { position:absolute; top: 232px; width: 22px; height: 22px; border-radius: 50%; z-index: 4; cursor:pointer; display:flex; align-items:center; justify-content:center; padding-bottom: 2px; box-sizing: border-box;
-         font: 500 14px/1 var(--ui); color: #3A2A0A; background: radial-gradient(circle at 40% 35%, #F0D89A, #9A7A40 70%); box-shadow: 0 2px 3px rgba(0,0,0,0.35), inset 0 0 0 1px #6E5222; }
-  .nav.prev { left: 14px; } .nav.next { right: 14px; }
-  .nav:hover { filter: brightness(1.08); } .nav:active { transform: translateY(1px); }
+
+export const className = card("dark", 180, 180, ...LAYOUT.spatial) + `
+  background: transparent; box-shadow: none; backdrop-filter: none; padding: 0; overflow: visible;
+  model-viewer { position:absolute; inset:0; width:100%; height:100%;
+                 background-color: transparent; --poster-color: transparent; }
+  .nav  { position:absolute; bottom:6px; width:26px; height:26px; z-index:5;
+          display:flex; align-items:center; justify-content:center; cursor:pointer;
+          border-radius:50%; color:rgba(255,255,255,0.9); font-size:15px;
+          background:rgba(20,20,28,0.5); backdrop-filter:blur(6px);
+          opacity:0; transition:opacity 0.2s ease; user-select:none; }
+  .nav.prev { left:6px; }
+  .nav.next { right:6px; }
+  :hover .nav { opacity:1; }
 `;
+
 const dayOfYear = () => {
   const now = new Date();
   return Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
@@ -472,28 +451,32 @@ const step = (delta) => (e) => {
   preload(next);
 };
 
-const stepAndLabel = (delta) => (e) => {
-  step(delta)(e);
-  const i = startIdx(); const p = document.getElementById("ws-spatial-name"); if (p) p.textContent = MODELS[i].name;
-  const n = document.getElementById("ws-spatial-no"); if (n) n.textContent = `No. ${i + 1} of ${MODELS.length}`;
-};
 export const render = () => {
-  const idx = startIdx(); const m = MODELS[idx]; preload(idx);
+  const idx = startIdx();
+  const m = MODELS[idx];
+  preload(idx);
   return (
     <div aria-label={`3D asset: ${m.name}, slowly rotating`}>
-      <div className="backwall" />
-      <div className="spot" />
-      <model-viewer id="ws-spatial-mv" ref={wire} src={url(m)} alt={m.name} auto-rotate="" auto-rotate-delay="0" rotation-per-second="22deg" interaction-prompt="none" disable-zoom="" environment-image="neutral" exposure="1.1" shadow-intensity="0.6" loading="eager" style={{ backgroundColor: "transparent" }}></model-viewer>
-      <div className="floor" />
-      <div className="case" />
-      <span className="post l" /><span className="post r" />
-      <div className="topcap" />
-      <div className="plinth" />
-      <div className="label"><div id="ws-spatial-name" className="plaque">{m.name}</div><div id="ws-spatial-no" className="no">No. {idx + 1} of {MODELS.length} · glTF sample</div></div>
-      <div className="nav prev" title="Previous object" onClick={stepAndLabel(-1)}>&#x2039;</div>
-      <div className="nav next" title="Next object" onClick={stepAndLabel(1)}>&#x203A;</div>
       <DragHandle k="spatial" />
       <ResizeHandle k="spatial" />
+      <model-viewer
+        id="ws-spatial-mv"
+        ref={wire}
+        src={url(m)}
+        alt={m.name}
+        auto-rotate=""
+        auto-rotate-delay="0"
+        rotation-per-second="22deg"
+        interaction-prompt="none"
+        disable-zoom=""
+        environment-image="neutral"
+        exposure="1.05"
+        shadow-intensity="0.35"
+        loading="eager"
+        style={{ backgroundColor: "transparent" }}
+      ></model-viewer>
+      <div className="nav prev" title="Previous object" onClick={step(-1)}>&#x2039;</div>
+      <div className="nav next" title="Next object" onClick={step(1)}>&#x203A;</div>
     </div>
   );
 };
